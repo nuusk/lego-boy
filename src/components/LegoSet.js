@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, Platform, StyleSheet } from 'react-native';
+import { View, Text, Platform, StyleSheet, Image } from 'react-native';
 
 
 const styles = StyleSheet.create({
   viewStyle: {
-    borderWidth: 1,
     borderRadius: 2,
-    borderColor: '#ddd',
-    borderBottomWidth: 0,
-    height: 60,
     padding: 15,
-    marginTop: 4,
-    marginLeft: 2,
-    marginRight: 2,
+    marginTop: 10,
+    marginLeft: 6,
+    marginRight: 6,
+    justifyContent: 'flex-start',
+    flexDirection: 'column',
+    position: 'relative',
     ...Platform.select({
       ios: {
         shadowOffset:{  width: 10,  height: 10,  },
@@ -24,9 +23,16 @@ const styles = StyleSheet.create({
       }
     })
   },
-  textStyle: {
+  sectionStyle: {
+    borderColor: '#ddd',
+    borderBottomWidth: 1,
+    padding: 5,
     fontSize: 20,
     color: '#000'
+  },
+  imageStyle: {
+    width: 50,
+    height: 50
   }
 });
 
@@ -39,6 +45,10 @@ export default class LegoSet extends Component {
     return (
       <View style={styles.viewStyle}>
         <Text style={styles.textStyle}>{this.props.name}</Text>
+        <Image
+          style={styles.imageStyle}
+          source={{uri: this.props.imageURL}}
+        />
       </View>
     );
   }

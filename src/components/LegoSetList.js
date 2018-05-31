@@ -30,7 +30,7 @@ export default class LegoSetList extends Component {
         key={legoSet.legoSetID}
         id={legoSet.legoSetID}
         name={legoSet.name}
-        imageURL={legoSet.imageURL}
+        imageURL={legoSet.bricks[0].imageURL}
       />
     );
     return (
