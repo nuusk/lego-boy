@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {  View, Text, } from 'react-native';
 
 import LegoSet from './LegoSet';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default class LegoSetList extends Component {
   constructor(props) {
@@ -33,9 +34,9 @@ export default class LegoSetList extends Component {
       />
     );
     return (
-      <View>
+      <ScrollView>
         { legoSetList }
-      </View>
+      </ScrollView>
     );
   }
 }
