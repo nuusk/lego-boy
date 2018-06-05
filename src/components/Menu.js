@@ -21,15 +21,17 @@ const styles = StyleSheet.create({
     width: 200,
     height: 30,
     // borderWidth: 0,
-    borderRadius: 15,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
     // flex: 1
   },
-  orange: {
-    backgroundColor: "#e4904e"
+  red: {
+    backgroundColor: "#f44274"
   },
-  orangeBorder: {
-    borderColor: "#e4904e",
+  redBorder: {
+    borderColor: "#f44274",
     borderWidth: 4,
+    borderTopWidth: 0,
   },
   yellow: {
     backgroundColor: "#f7c32e"
@@ -37,9 +39,7 @@ const styles = StyleSheet.create({
   yellowBorder: {
     borderColor: "#f7c32e",
     borderWidth: 4,
-  },
-  yellow: {
-    backgroundColor: "#f7c32e"
+    borderTopWidth: 0,
   }
 });
 
@@ -50,9 +50,10 @@ export default class Menu extends Component {
 
   render() {
     return (
-      <View style={styles.viewStyle}>
+        this.props.currentView === 'setsView' || this.props.currentView === 'projectsView' ?
+        <View style={styles.viewStyle}>
         <TouchableOpacity
-          style={[styles.buttonStyle, this.props.currentView === 'setsView' ? styles.orange : styles.orangeBorder]}
+          style={[styles.buttonStyle, this.props.currentView === 'setsView' ? styles.red : styles.redBorder]}
           onPress={ () => { this.props.changeView('setsView') } }
         >
           <Text style={styles.textStyle}> All sets </Text>
@@ -64,6 +65,7 @@ export default class Menu extends Component {
           <Text style={styles.textStyle}> Projects </Text>
         </TouchableOpacity>
       </View>
+      :null
     );
   }
 }

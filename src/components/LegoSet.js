@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Platform, StyleSheet, Image } from 'react-native';
+import { View, Text, Platform, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 // e4904e orange
 // f7c32e yellow
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     padding: 1,
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#e4904e'
+    color: '#f44274'
   },
   descriptionStyle: {
     padding: 1,
@@ -43,19 +43,74 @@ const styles = StyleSheet.create({
   imageStyle: {
     width: 50,
     height: 50
+  },
+  buttonStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+  },
+  red: {
+    backgroundColor: "#f44274"
+  },
+  redBorder: {
+    borderColor: "#f44274",
+    borderWidth: 4,
+    borderTopWidth: 0,
+  },
+  yellow: {
+    backgroundColor: "#f7c32e"
+  },
+  yellowBorder: {
+    borderColor: "#f7c32e",
+    borderWidth: 4,
+    borderTopWidth: 0,
   }
 });
 
 export default class LegoSet extends Component {
   constructor(props) {
     super(props);
+
+    this.addProject = this.addProject.bind(this);
+  }
+
+  addProject() {
+    fetch('https://rocky-inlet-84429.herokuapp.com/api/project', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({ legoSetID: this.props.legoSetID }) 
+    }).then(blob => {
+        // console.log(blob.status);
+        if (blob.status === 200) {
+          alert('Project created!');
+        } else if (blob.status === 409) {
+          alert('Project alraedy exists!');
+        } else {
+          alert('Unforeseen error :(');
+        }
+      });
   }
 
   render() {
     return (
-      <View style={styles.viewStyle}>
-        <Text style={styles.textStyle}>{this.props.name}</Text>
-        <Text style={styles.descriptionStyle}>{this.props.legoSetID}</Text>
+      <View style={[styles.viewStyle, {flex: 1, flexDirection: 'row', justifyContent: 'space-between'}]}>
+        <View style={{
+          justifyContent: 'flex-start',
+          flexDirection: 'column',
+          position: 'relative'}}>
+          <Text style={styles.textStyle}>{this.props.name}</Text>
+          <Text style={styles.descriptionStyle}>{this.props.legoSetID}</Text>
+        </View>
+        <TouchableOpacity
+          style={[styles.buttonStyle, styles.red]}
+          onPress={ this.addProject }
+        >
+          <Text style={[styles.textStyle, {color: '#fff', fontSize: 30}]}> + </Text>
+        </TouchableOpacity>
       </View>
     );
   }

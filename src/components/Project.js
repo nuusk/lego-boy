@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     padding: 1,
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#e4904e'
+    color: '#f7c32e'
   },
   descriptionStyle: {
     padding: 1,
