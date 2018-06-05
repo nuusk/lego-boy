@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class LegoSet extends Component {
+export default class Project extends Component {
   constructor(props) {
     super(props);
   }
@@ -55,7 +55,7 @@ export default class LegoSet extends Component {
     return (
       <View style={styles.viewStyle}>
         <Text style={styles.textStyle}>{this.props.name}</Text>
-        <Text style={styles.descriptionStyle}>{this.props.legoSetID}</Text>
+        <Text style={styles.descriptionStyle}>{this.props.projectID}</Text>
       </View>
     );
   }

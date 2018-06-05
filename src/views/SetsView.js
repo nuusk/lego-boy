@@ -14,7 +14,9 @@ export default class HomeView extends Component {
   render() {
     return (
       <View style={styles.viewStyle}>
-        <LegoSetList />
+        <LegoSetList
+          dataURL='https://rocky-inlet-84429.herokuapp.com/api/legosets'
+        />
       </View>
     );
   }

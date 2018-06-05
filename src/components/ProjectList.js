@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import {  View, Text, ListView } from 'react-native';
 
-import LegoSet from './LegoSet';
-import { ScrollView } from 'react-native-gesture-handler';
+import Project from './Project';
 
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
-export default class LegoSetList extends Component {
+export default class ProjectList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      legoSets: ds.cloneWithRows([]),
+      projects: ds.cloneWithRows([]),
       ready: false
     }
   }
@@ -21,20 +20,18 @@ export default class LegoSetList extends Component {
       .then(blob => blob.json())
       .then(data => {
         this.setState({
-          legoSets: ds.cloneWithRows(data),
+          projects: ds.cloneWithRows(data),
           ready: true
         });
       });
-
   }
 
-  renderRow(legoSet) {
+  renderRow(project) {
     return (
-      <LegoSet
-        key={legoSet.legoSetID}
-        legoSetID={legoSet.legoSetID}
-        name={legoSet.name}
-        imageURL={legoSet.bricks[0].imageURL}
+      <Project
+        projectID={project.legoSetID}
+        name={project.name}
+        imageURL={project.bricks[0].imageURL}
       />
     );
   }
@@ -43,7 +40,7 @@ export default class LegoSetList extends Component {
     return (
       <ListView
         enableEmptySections
-        dataSource={this.state.legoSets}
+        dataSource={this.state.projects}
         renderRow={this.renderRow}
       />
     );
@@ -51,5 +48,5 @@ export default class LegoSetList extends Component {
 }
 
 // <ScrollView>
-//         { legoSetList }
+//         { projectList }
 //       </ScrollView>
