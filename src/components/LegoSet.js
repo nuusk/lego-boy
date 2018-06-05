@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, Platform, StyleSheet, Image } from 'react-native';
 
-
+// e4904e orange
+// f7c32e yellow
 const styles = StyleSheet.create({
   viewStyle: {
     borderRadius: 2,
+    backgroundColor: '#fff',
     padding: 15,
     marginTop: 10,
     marginLeft: 6,
@@ -23,12 +25,17 @@ const styles = StyleSheet.create({
       }
     })
   },
-  sectionStyle: {
-    borderColor: '#ddd',
-    borderBottomWidth: 1,
-    padding: 5,
+  textStyle: {
+    padding: 1,
     fontSize: 20,
-    color: '#000'
+    fontWeight: 'bold',
+    color: '#e4904e'
+  },
+  descriptionStyle: {
+    padding: 1,
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#7b7884'
   },
   imageStyle: {
     width: 50,
@@ -45,11 +52,13 @@ export default class LegoSet extends Component {
     return (
       <View style={styles.viewStyle}>
         <Text style={styles.textStyle}>{this.props.name}</Text>
-        <Image
-          style={styles.imageStyle}
-          source={{uri: this.props.imageURL}}
-        />
+        <Text style={styles.descriptionStyle}>{this.props.legoSetID}</Text>
       </View>
     );
   }
 }
+
+// <Image
+// style={styles.imageStyle}
+// source={{uri: this.props.imageURL}}
+// />

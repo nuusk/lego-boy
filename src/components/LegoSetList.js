@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import {  View, Text, } from 'react-native';
+import {  View, Text, ListView } from 'react-native';
 
 import LegoSet from './LegoSet';
 import { ScrollView } from 'react-native-gesture-handler';
+
+const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
 export default class LegoSetList extends Component {
   constructor(props) {
@@ -10,7 +12,8 @@ export default class LegoSetList extends Component {
 
     this.state = {
       apiURL: 'https://rocky-inlet-84429.herokuapp.com',
-      legoSets: []
+      legoSets: ds.cloneWithRows([]),
+      ready: false
     }
   }
 
@@ -19,24 +22,43 @@ export default class LegoSetList extends Component {
       .then(blob => blob.json())
       .then(data => {
         this.setState({
-          legoSets: data
+          legoSets: ds.cloneWithRows(data),
+          ready: true
         });
       });
+
   }
 
-  render() {
-    const legoSetList = this.state.legoSets.map(legoSet => 
+  renderRow(legoSet) {
+    return (
       <LegoSet
         key={legoSet.legoSetID}
-        id={legoSet.legoSetID}
+        legoSetID={legoSet.legoSetID}
         name={legoSet.name}
         imageURL={legoSet.bricks[0].imageURL}
       />
     );
+  }
+
+  render() {
+    // const legoSetList = this.state.legoSets.map(legoSet => 
+    //   <LegoSet
+    //     key={legoSet.legoSetID}
+    //     legoSetID={legoSet.legoSetID}
+    //     name={legoSet.name}
+    //     imageURL={legoSet.bricks[0].imageURL}
+    //   />
+    // );
     return (
-      <ScrollView>
-        { legoSetList }
-      </ScrollView>
+      <ListView
+        enableEmptySections
+        dataSource={this.state.legoSets}
+        renderRow={this.renderRow}
+      />
     );
   }
 }
+
+// <ScrollView>
+//         { legoSetList }
+//       </ScrollView>

@@ -3,7 +3,7 @@ import { View, Text, Platform, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   viewStyle: {
-    backgroundColor: '#fff',
+    backgroundColor: '#2a2c5a',
     justifyContent: 'center',
     alignItems: 'center',
     height: 60,
@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
     })
   },
   textStyle: {
-    fontSize: 20,
-    color: '#000'
+    fontSize: 15,
+    color: '#e0e2e3'
   }
 });
 
@@ -33,7 +33,7 @@ export default class Header extends Component {
   render() {
     return (
       <View style={styles.viewStyle}>
-        <Text style={styles.textStyle}>{this.props.text}</Text>
+        <Text style={styles.textStyle}>{this.props.text.toUpperCase()}</Text>
       </View>
     );
   }
