@@ -11,7 +11,8 @@ export default class BrickList extends Component {
 
     this.state = {
       bricks: ds.cloneWithRows([]),
-      ready: false
+      ready: false,
+      decrementReady: true
     }
 
     this.incrementQuantity = this.incrementQuantity.bind(this);
@@ -44,19 +45,27 @@ export default class BrickList extends Component {
       });
   }
 
-  decrementQuantity(brickID) {
-    fetch(this.props.decrementURL, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({ legoSetID: this.props.projectID, brickID: brickID })
-    }).then(blob => blob.json())
-      .then(data => {
-        this.setState({
-          bricks: ds.cloneWithRows(data[0].bricks)
-        });
-      });
+  decrementQuantity(brickID, ownedQuantity) {
+    if (ownedQuantity >= 1 && this.state.decrementReady) {
+      this.setState({
+        decrementReady: false
+      }, () => {
+        fetch(this.props.decrementURL, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify({ legoSetID: this.props.projectID, brickID: brickID })
+        }).then(blob => blob.json())
+          .then(data => {
+            this.setState({
+              bricks: ds.cloneWithRows(data[0].bricks),
+              decrementReady: true
+            });
+          });
+      })
+
+    } 
   }
 
   renderRow(brick) {

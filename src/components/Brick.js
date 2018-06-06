@@ -93,7 +93,7 @@ export default class Brick extends Component {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.buttonStyle, styles.red]}
-              onPress={ () => { this.props.decrementQuantity(this.props.brickID) }}
+              onPress={ () => { this.props.decrementQuantity(this.props.brickID, this.props.ownedQuantity) }}
             >
               <Text style={[styles.textStyle, {color: '#fff', fontSize: 30}]}> - </Text>
             </TouchableOpacity>
