@@ -6,6 +6,7 @@ import LegoSetList from './components/LegoSetList';
 import HomeView from './views/HomeView';
 import SetsView from './views/SetsView';
 import ProjectsView from './views/ProjectsView';
+import ProjectDetailsView from './views/ProjectDetailsView';
 import Menu from './components/Menu';
 
 export default class LegoBoy extends Component {
@@ -16,11 +17,19 @@ export default class LegoBoy extends Component {
       view: 'setsView'
     };
     this.changeView = this.changeView.bind(this);
+    this.selectProject = this.selectProject.bind(this);
   }
 
   changeView(newView) {
     this.setState({
       view: newView,
+    });
+  }
+
+  selectProject(projectID) {
+    this.setState({
+      view: 'projectDetailsView',
+      selectedProjectID: projectID
     });
   }
 
@@ -31,7 +40,10 @@ export default class LegoBoy extends Component {
         view = <SetsView />;
         break;
       case 'projectsView':
-        view = <ProjectsView />;
+        view = <ProjectsView selectProject={this.selectProject} />;
+        break;
+      case 'projectDetailsView':
+        view = <ProjectDetailsView projectID={this.state.selectedProjectID}/>;
         break;
       default:
         view = <HomeView />;
@@ -39,11 +51,18 @@ export default class LegoBoy extends Component {
     }
     return (
       <View>
-        <Header text="lego boy"/>
-        <Menu 
+        <Header
+          text="lego boy"
           changeView={this.changeView}
-          currentView={this.state.view}
         />
+        {
+          this.state.view === 'setsView' || this.state.view === 'projectsView' ?
+          <Menu 
+            changeView={this.changeView}
+            currentView={this.state.view}
+          />
+          :null
+        }
         { view }
       </View>
     );

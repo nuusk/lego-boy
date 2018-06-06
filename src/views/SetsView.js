@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import {  View, Text, StyleSheet, Modal,TouchableHighlight } from 'react-native';
+import {  View, Text, StyleSheet, Modal,TouchableHighlight, Dimensions} from 'react-native';
 
 import LegoSetList from '../components/LegoSetList';
-
+const {height, width} = Dimensions.get('window');
+console.log(height);
 const styles = StyleSheet.create({
   viewStyle: {
     backgroundColor: '#e0e2e3',
+    height: height-90
   },
   modalStyle: {
     width: 400,
-    height: 200
   }
 });
 
-export default class HomeView extends Component {
+export default class SetsView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,6 +32,7 @@ export default class HomeView extends Component {
 
         <LegoSetList
           dataURL='https://rocky-inlet-84429.herokuapp.com/api/legosets'
+          projectsURL='https://rocky-inlet-84429.herokuapp.com/api/projects'
         />
       </View>
     );

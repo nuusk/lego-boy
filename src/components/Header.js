@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Platform, StyleSheet } from 'react-native';
+import { View, Text, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
 const styles = StyleSheet.create({
   viewStyle: {
@@ -33,7 +33,14 @@ export default class Header extends Component {
   render() {
     return (
       <View style={styles.viewStyle}>
-        <Text style={styles.textStyle}>{this.props.text.toUpperCase()}</Text>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={()=>{
+            this.props.changeView('setsView')
+          }}
+        >
+          <Text style={styles.textStyle}>{this.props.text.toUpperCase()}</Text>
+        </TouchableOpacity>
       </View>
     );
   }

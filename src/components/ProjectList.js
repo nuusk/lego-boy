@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  View, Text, ListView } from 'react-native';
+import {  View, Text, ListView, TouchableOpacity } from 'react-native';
 
 import Project from './Project';
 
@@ -28,11 +28,19 @@ export default class ProjectList extends Component {
 
   renderRow(project) {
     return (
-      <Project
-        projectID={project.legoSetID}
-        name={project.name}
-        imageURL={project.bricks[0].imageURL}
-      />
+      <TouchableOpacity
+        activeOpacity={1}
+        onPress={()=>{
+          this.props.selectProject(project.legoSetID)
+        }}
+      >
+        <Project
+          projectID={project.legoSetID}
+          name={project.name}
+          imageURL={project.bricks[0].imageURL}
+          selectedProjectID={this.state.selectedProjectID}
+        />
+      </TouchableOpacity>
     );
   }
 
@@ -41,7 +49,7 @@ export default class ProjectList extends Component {
       <ListView
         enableEmptySections
         dataSource={this.state.projects}
-        renderRow={this.renderRow}
+        renderRow={this.renderRow.bind(this)}
       />
     );
   }
