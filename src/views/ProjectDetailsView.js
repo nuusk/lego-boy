@@ -24,6 +24,9 @@ export default class ProjectDetailsView extends Component {
       <View style={styles.viewStyle}>
         <BrickList
           dataURL={`https://rocky-inlet-84429.herokuapp.com/api/project/${this.props.projectID}`}
+          incrementURL={`https://rocky-inlet-84429.herokuapp.com/api/increment`}
+          decrementURL={`https://rocky-inlet-84429.herokuapp.com/api/decrement`}
+          projectID={this.props.projectID}
         />
       </View>
     );

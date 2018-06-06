@@ -13,16 +13,48 @@ export default class BrickList extends Component {
       bricks: ds.cloneWithRows([]),
       ready: false
     }
+
+    this.incrementQuantity = this.incrementQuantity.bind(this);
+    this.decrementQuantity = this.decrementQuantity.bind(this);
+    this.renderRow = this.renderRow.bind(this);
   }
 
   componentWillMount() {
     fetch(this.props.dataURL)
       .then(blob => blob.json())
       .then(data => {
-        console.log(data[0].bricks);
         this.setState({
-          bricks: ds.cloneWithRows(data[0].bricks),
-          ready: true
+          bricks: ds.cloneWithRows(data[0].bricks)
+        });
+      });
+  }
+
+  incrementQuantity(brickID) {
+    fetch(this.props.incrementURL, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({ legoSetID: this.props.projectID, brickID: brickID })
+    }).then(blob => blob.json())
+      .then(data => {
+        this.setState({
+          bricks: ds.cloneWithRows(data[0].bricks)
+        });
+      });
+  }
+
+  decrementQuantity(brickID) {
+    fetch(this.props.decrementURL, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({ legoSetID: this.props.projectID, brickID: brickID })
+    }).then(blob => blob.json())
+      .then(data => {
+        this.setState({
+          bricks: ds.cloneWithRows(data[0].bricks)
         });
       });
   }
@@ -35,10 +67,13 @@ export default class BrickList extends Component {
         imageURL={brick.imageURL}
         ownedQuantity={brick.ownedQuantity}
         requiredQuantity={brick.requiredQuantity}
+        incrementQuantity={this.incrementQuantity}
+        decrementQuantity={this.decrementQuantity}
       />
     );
   }
 
+  
   render() {
     return (
       <ListView

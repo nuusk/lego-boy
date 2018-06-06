@@ -14,18 +14,22 @@ export default class LegoSetList extends Component {
       legoSets: ds.cloneWithRows([]),
       ready: false
     }
+
+    this.fetchData = this.fetchData.bind(this);
   }
 
   componentWillMount() {
-    fetch(this.props.dataURL)
-      .then(blob => blob.json())
-      .then(data => {
-        this.setState({
-          legoSets: ds.cloneWithRows(data),
-          ready: true
-        });
-      });
+    this.fetchData();
+  }
 
+  fetchData() {
+    fetch(this.props.dataURL)
+    .then(blob => blob.json())
+    .then(data => {
+      this.setState({
+        legoSets: ds.cloneWithRows(data),
+      });
+    });
   }
 
   renderRow(legoSet) {
@@ -42,6 +46,7 @@ export default class LegoSetList extends Component {
   render() {
     return (
       <ListView
+        automaticallyAdjustContentInsets={false}
         enableEmptySections
         dataSource={this.state.legoSets}
         renderRow={this.renderRow}

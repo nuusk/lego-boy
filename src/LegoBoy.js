@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  View, Text, Button } from 'react-native';
+import { View, Text, Button } from 'react-native';
 
 import Header from './components/Header';
 import LegoSetList from './components/LegoSetList';
@@ -50,7 +50,7 @@ export default class LegoBoy extends Component {
         break;
     }
     return (
-      <View>
+      <View style={{backgroundColor: '#2a2c5a',}}>
         <Header
           text="lego boy"
           changeView={this.changeView}
@@ -63,6 +63,7 @@ export default class LegoBoy extends Component {
           />
           :null
         }
+        
         { view }
       </View>
     );

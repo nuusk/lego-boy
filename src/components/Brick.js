@@ -72,6 +72,7 @@ export default class Brick extends Component {
     super(props);
   }
 
+
   render() {
     return (
       <View style={[styles.viewStyle, {flexDirection: 'column', justifyContent: 'space-between'}]}>
@@ -86,13 +87,13 @@ export default class Brick extends Component {
             <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
              <TouchableOpacity
               style={[styles.buttonStyle, styles.red]}
-              onPress={ this.addProject }
+              onPress={ () => { this.props.incrementQuantity(this.props.brickID) }}
             >
               <Text style={[styles.textStyle, {color: '#fff', fontSize: 30}]}> + </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.buttonStyle, styles.red]}
-              onPress={ this.addProject }
+              onPress={ () => { this.props.decrementQuantity(this.props.brickID) }}
             >
               <Text style={[styles.textStyle, {color: '#fff', fontSize: 30}]}> - </Text>
             </TouchableOpacity>

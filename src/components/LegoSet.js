@@ -84,7 +84,6 @@ export default class LegoSet extends Component {
       },
       body: JSON.stringify({ legoSetID: this.props.legoSetID }) 
     }).then(blob => {
-        // console.log(blob.status);
         if (blob.status === 200) {
           alert('Project created!');
         } else if (blob.status === 409) {
