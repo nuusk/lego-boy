@@ -49,13 +49,51 @@ const styles = StyleSheet.create({
 export default class Project extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      ownedBricks: 0,
+      requiredBricks: 0
+    }
   }
+
+  componentWillMount() {
+    let _tmpOwned = 0;
+    let _tmpRequired = 0;
+    this.props.bricks.forEach(brick => {
+      _tmpRequired += brick.requiredQuantity;
+      _tmpOwned += Math.min(brick.ownedQuantity, brick.requiredQuantity);
+    });
+
+    this.setState({
+      ownedBricks: _tmpOwned,
+      requiredBricks: _tmpRequired
+    });
+  }
+
+  formatDate(x) {
+    const monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+    ];
+    const date = new Date(x);
+    const day = date.getDate();
+    const monthIndex = date.getMonth();
+    const year = date.getFullYear();
+    const hour = date.getHours();
+    const minutes = date.getMinutes();
+  
+    return day + ' ' + monthNames[monthIndex] + ' ' + year + ', ' + ('0'+(hour-2)).slice(-2) + ':' + ('0'+minutes).slice(-2);
+  }
+  
 
   render() {
     return (
       <View style={styles.viewStyle}>
         <Text style={styles.textStyle}>{this.props.name}</Text>
-        <Text style={styles.descriptionStyle}>{this.props.projectID}</Text>
+        <Text style={styles.descriptionStyle}>You have {this.state.ownedBricks} of all {this.state.requiredBricks} bricks.</Text>
+        <Text style={styles.descriptionStyle}>Date Modified: {this.formatDate(this.props.lastModified)}.</Text>
       </View>
     );
   }

@@ -13,8 +13,7 @@ export default class LegoBoy extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: true,
-      view: 'setsView'
+      view: 'projectsView'
     };
     this.changeView = this.changeView.bind(this);
     this.selectProject = this.selectProject.bind(this);

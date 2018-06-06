@@ -37,7 +37,8 @@ export default class ProjectList extends Component {
         <Project
           projectID={project.legoSetID}
           name={project.name}
-          imageURL={project.bricks[0].imageURL}
+          bricks={project.bricks}
+          lastModified={project.lastModified}
           selectedProjectID={this.state.selectedProjectID}
         />
       </TouchableOpacity>
